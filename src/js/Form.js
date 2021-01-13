@@ -1,18 +1,33 @@
+/**
+ * @class Form
+ */
 export default class Form {
+  /**
+   * Init
+   */
   init() {
     this.addElements();
   }
 
+  /**
+   * Add all elements
+   */
   addElements() {
     this.addForm();
   }
 
+  /**
+   * Add form
+   */
   addForm() {
     this.form = document.createElement('form');
     this.form.classList.add('form');
     this.addFormMarkup();
   }
 
+  /**
+   * Add markup to form
+   */
   addFormMarkup() {
     this.form.innerHTML = `
     <div class="form-content">
@@ -36,6 +51,9 @@ export default class Form {
     `;
   }
 
+  /**
+   * @return this.form
+   */
   getForm() {
     this.init();
 

@@ -46,24 +46,39 @@ export default class Elements {
     this.addContentMarkup();
   }
 
+  /**
+   * Add contentList
+   */
   addContentList() {
     this.contentList = document.querySelector('.content-list');
   }
 
+  /**
+   * Add contentItems
+   */
   addContentItems() {
     this.contentItems = document.querySelector('.items');
   }
 
+  /**
+   * Show form
+   */
   showForm() {
     this.form.classList.add('form-active');
     this.form.querySelector('.field-title').focus();
   }
 
+  /**
+   * Hide form
+   */
   hideForm() {
     this.form.classList.remove('form-active');
     this.resetHint();
   }
 
+  /**
+   * Show hint on field
+   */
   showHint(e, message) {
     const parent = this.form.querySelector(`.field-${e}`);
 
@@ -75,6 +90,9 @@ export default class Elements {
     hint.classList.add('hint-active');
   }
 
+  /**
+   * Hide hints
+   */
   resetHint() {
     const hints = this.form.querySelectorAll('.hint');
     hints.forEach((e) => {
@@ -103,10 +121,16 @@ export default class Elements {
     `;
   }
 
+  /**
+   * Add item to contentItems
+   */
   addItem(item) {
     this.contentItems.appendChild(this.item.getItem(item));
   }
 
+  /**
+   * Clear contentItems
+   */
   clearContentItems() {
     this.contentItems.innerHTML = '';
   }

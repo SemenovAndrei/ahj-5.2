@@ -1,19 +1,39 @@
+/**
+ * @class ListCrud
+ */
 export default class ListCrud {
+  /**
+   * @constructor
+   *
+   * @param {class} elements - Elements
+   * @param {class} items - Items
+   */
   constructor(elements, items = []) {
     this.elements = elements;
     this.items = items;
   }
 
+  /**
+   * Init
+   */
   init() {
     this.elements.init();
     this.showItems();
     this.addListeners();
   }
 
+  /**
+   * Add listeners
+   */
   addListeners() {
     this.elements.container.addEventListener('click', this.buttonsLogic.bind(this));
   }
 
+  /**
+   * Logic actions to click on buttons
+   *
+   * @param {event} e - Click event
+   */
   buttonsLogic(e) {
     e.preventDefault();
     this.resetDeleteButtons();
@@ -58,6 +78,11 @@ export default class ListCrud {
     }
   }
 
+  /**
+   * Get values to fields form
+   *
+   * @param {element} e - event target
+   */
   getItemValue(e) {
     const title = e.closest('.item').querySelector('.item-title').textContent;
     const price = e.closest('.item').querySelector('.item-price').textContent;
@@ -66,11 +91,17 @@ export default class ListCrud {
     this.elements.form.querySelector('.field-price').value = Number(price);
   }
 
+  /**
+   * Get empty values to fields form
+   */
   getItemEmpty() {
     this.elements.form.querySelector('.field-title').value = '';
     this.elements.form.querySelector('.field-price').value = '';
   }
 
+  /**
+   * Check fields form to correct value
+   */
   checkForm() {
     this.elements.resetHint();
 
@@ -93,6 +124,11 @@ export default class ListCrud {
     }
   }
 
+  /**
+   * Add items to this.items
+   *
+   * @param {object} object - Object item
+   */
   addItem(object = '') {
     const result = {
       title: object.title || this.elements.form.querySelector('.field-title').value,
@@ -113,6 +149,9 @@ export default class ListCrud {
     this.items.push(result);
   }
 
+  /**
+   * Set ID to item
+   */
   setItemID() {
     let cnt = 0;
 
@@ -124,17 +163,28 @@ export default class ListCrud {
     return cnt;
   }
 
-  static confirmDelete(item) {
-    item.style.display = 'none';
-    item.nextElementSibling.style.display = 'block';
+  /**
+   * Show hidden buttonsReallyDelete
+   *
+   * @param {button} item - button
+   */
+  static confirmDelete(button) {
+    button.style.display = 'none';
+    button.nextElementSibling.style.display = 'block';
   }
 
+  /**
+   * Delete item in this.items
+   */
   deleteItem() {
     const index = this.items.findIndex((e) => e.id === this.editItemID);
     this.items.splice(index, 1);
     this.editItemID = null;
   }
 
+  /**
+   * Reset all delete buttons
+   */
   resetDeleteButtons() {
     const buttonsDelete = this.elements.content.getElementsByClassName('button-delete');
 
@@ -149,6 +199,9 @@ export default class ListCrud {
     });
   }
 
+  /**
+   * Show this.items on page
+   */
   showItems() {
     this.items.forEach((e) => this.elements.addItem(e));
   }

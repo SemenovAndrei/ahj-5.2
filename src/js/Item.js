@@ -1,12 +1,28 @@
+/**
+ * @class Item
+ */
 export default class Item {
+  /**
+   * init
+   *
+   * @param {object} item - Item object
+   */
   init(item) {
     this.addElements(item);
   }
 
+  /**
+   * Add all elements
+   */
   addElements(item) {
     this.addItem(item);
   }
 
+  /**
+   * Add item to current
+   *
+   * @param {object} item - Item object
+   */
   addItem(item) {
     this.item = document.createElement('div');
     this.item.dataset.id = item.id;
@@ -14,6 +30,11 @@ export default class Item {
     this.addItemMarkup(item);
   }
 
+  /**
+   * Add markup to item
+   *
+   * @param {object} item - Item object
+   */
   addItemMarkup(item) {
     this.item.innerHTML = `
     <div class="cell item-title">${item.title}</div>
@@ -26,6 +47,11 @@ export default class Item {
     `;
   }
 
+  /**
+   * @return this.item
+   *
+   * @param {obiect} item - Item object
+   */
   getItem(item) {
     this.init(item);
 
