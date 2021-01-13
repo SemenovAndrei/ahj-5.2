@@ -1,10 +1,18 @@
-import Popover from './Popover';
+import Item from './Item';
+import Form from './Form';
 import Elements from './Elements';
-import Popovers from './Popovers';
+import ListCrud from './ListCrud';
 
-const popover = new Popover();
+const item = new Item();
 
-const elements = new Elements(popover);
+const form = new Form();
 
-const popovers = new Popovers(elements);
-popovers.init();
+const elements = new Elements(item, form);
+
+const listCrud = new ListCrud(elements);
+listCrud.init();
+
+listCrud.addItem({ title: 'iPhone XR', price: 60000 });
+listCrud.addItem({ title: 'Samsung Galaxy S10+', price: 80000 });
+listCrud.addItem({ title: 'Huawei View', price: 50000 });
+listCrud.showItems();
