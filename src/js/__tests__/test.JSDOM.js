@@ -1,44 +1,62 @@
-import Popover from '../Popover';
+import Item from '../Item';
+import Form from '../Form';
 import Elements from '../Elements';
-import Popovers from '../Popovers';
+import ListCrud from '../ListCrud';
 
-const popover = new Popover();
+const item = new Item();
 
-const elements = new Elements(popover);
+const form = new Form();
 
-const popovers = new Popovers(elements);
-popovers.init();
+const elements = new Elements(item, form);
 
-const buttons = document.querySelectorAll('.button');
+const listCrud = new ListCrud(elements);
+listCrud.init();
 
-describe('test Popovers', () => {
-  describe('valid', () => {
-    test.each([
-      [buttons[0]],
-      [buttons[1]],
-      [buttons[2]],
-      [buttons[3]],
-    ])('%p', (button) => {
-      const tooltip = button.nextElementSibling;
+listCrud.addItem({ title: 'iPhone XR', price: 60000 });
+listCrud.addItem({ title: 'Samsung Galaxy S10+', price: 80000 });
+listCrud.addItem({ title: 'Huawei View', price: 50000 });
+listCrud.showItems();
 
-      button.click();
+describe('test ListCrud', () => {
+  test('add', () => {
+    const buttonAdd = document.querySelector('.button-add');
+    const buttonSave = document.querySelector('.button-save');
+    buttonAdd.click();
 
-      expect(tooltip.hasChildNodes()).toBeTruthy();
-    });
+    document.querySelector('.field-title').value = 'test';
+    document.querySelector('.field-price').value = 123;
+    buttonSave.click();
+    expect(listCrud.items.length).toBe(4);
   });
-  describe('invalid', () => {
-    test.each([
-      [buttons[0]],
-      [buttons[1]],
-      [buttons[2]],
-      [buttons[3]],
-    ])('%p', (button) => {
-      const tooltip = button.nextElementSibling;
 
-      button.click();
-      button.click();
+  test('cancel', () => {
+    const buttonAdd = document.querySelector('.button-add');
+    const buttonCancel = document.querySelector('.button-cancel');
+    buttonAdd.click();
 
-      expect(tooltip.hasChildNodes()).toBeFalsy();
-    });
+    document.querySelector('.field-title').value = 'test';
+    document.querySelector('.field-price').value = 123;
+    buttonCancel.click();
+    expect(listCrud.items.length).toBe(4);
+  });
+
+  test('edit', () => {
+    const buttonSave = document.querySelector('.button-save');
+
+    const buttonEdit = document.querySelector('.button-edit');
+    buttonEdit.click();
+
+    document.querySelector('.field-title').value = 'test123';
+    document.querySelector('.field-price').value = 123;
+    buttonSave.click();
+    expect(listCrud.items[0].title).toBe('test123');
+  });
+
+  test('edit', () => {
+    const buttonDelete = document.querySelector('.button-delete');
+    const buttonReallyDelete = document.querySelector('.button-really-delete');
+    buttonDelete.click();
+    buttonReallyDelete.click();
+    expect(listCrud.items.length).toBe(3);
   });
 });
