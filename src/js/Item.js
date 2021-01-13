@@ -50,7 +50,7 @@ export default class Item {
   /**
    * @return this.item
    *
-   * @param {obiect} item - Item object
+   * @param {object} item - Item object
    */
   getItem(item) {
     this.init(item);

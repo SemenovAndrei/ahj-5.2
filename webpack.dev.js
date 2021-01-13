@@ -13,7 +13,6 @@ module.exports = merge(common, {
   devServer: {
     stats: 'errors-only',
     open: true,
-    devtools: true,
     port: 8888,
   },
 
