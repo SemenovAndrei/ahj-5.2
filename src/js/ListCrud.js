@@ -16,6 +16,7 @@ export default class ListCrud {
 
   buttonsLogic(e) {
     e.preventDefault();
+    this.resetDeleteButtons();
 
     if (e.target.classList.contains('button-add')) {
       this.elements.showForm();
@@ -26,6 +27,19 @@ export default class ListCrud {
       this.elements.showForm();
       this.getItemValue(e.target);
       this.editItemID = Number(e.target.closest('.item').dataset.id);
+    }
+
+    if (e.target.classList.contains('button-delete')) {
+      this.editItemID = Number(e.target.closest('.item').dataset.id);
+
+      ListCrud.confirmDelete(e.target);
+    }
+
+    if (e.target.classList.contains('button-really-delete')) {
+      this.editItemID = Number(e.target.closest('.item').dataset.id);
+      this.deleteItem();
+      this.elements.clearContentItems();
+      this.showItems();
     }
 
     if ([...e.target.classList].some((c) => c === 'form' || c === 'button-cancel')) {
@@ -104,9 +118,35 @@ export default class ListCrud {
 
     do {
       cnt += 1;
+    // eslint-disable-next-line no-loop-func
     } while (this.items.some((e) => e.id === cnt));
 
     return cnt;
+  }
+
+  static confirmDelete(item) {
+    item.style.display = 'none';
+    item.nextElementSibling.style.display = 'block';
+  }
+
+  deleteItem() {
+    const index = this.items.findIndex((e) => e.id === this.editItemID);
+    this.items.splice(index, 1);
+    this.editItemID = null;
+  }
+
+  resetDeleteButtons() {
+    const buttonsDelete = this.elements.content.getElementsByClassName('button-delete');
+
+    buttonsDelete.forEach((e) => {
+      e.style.display = 'block';
+    });
+
+    const buttonsReallyDelete = this.elements.content.getElementsByClassName('button-really-delete');
+
+    buttonsReallyDelete.forEach((e) => {
+      e.style.display = 'none';
+    });
   }
 
   showItems() {

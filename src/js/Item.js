@@ -18,9 +18,10 @@ export default class Item {
     this.item.innerHTML = `
     <div class="cell item-title">${item.title}</div>
     <div class="cell item-price">${item.price}</div>
-    <div class="cell item-control">
+    <div class="cell item-controls">
       <button class="button button-content button-edit" title="edit">✎</button>
       <button class="button button-content button-delete" title="delete">❌</button>
+      <button class="button button-content button-really-delete" title="really-delete">Удалить?</button>
     </div>
     `;
   }
